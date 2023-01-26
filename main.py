@@ -14,23 +14,6 @@ def main():
     # run a function that takes those paths and gathers data from each document
     file_data_list = setup.gather_from_files(file_path_list)
 
-    print("\nJOINED TABLES (ISOLATION/LOCKOUT)")
-    for joined in file_data_list:
-        if joined.joined:
-            print(joined.file_name)
-
-    print("\nFILES WITH CONTEXT ROWS IN LOCKOUT TABLE:")
-    for cont in file_data_list:
-        for lr in cont.lockout:
-            if lr.context:
-                print(cont.file_name)
-                break
-
-    print(f"\nFILES WITH EXTRA REQUIREMENTS IN SECTION 3.0:")
-    for extra in file_data_list:
-        if len(extra.extra) > 0:
-            print(extra.file_name)
-
     # create a custom list of lists to convert to csv's for review
     csv_list = []
     lockout_list = []
@@ -54,10 +37,10 @@ def main():
             lockout_list.append(["", lr.num, lr.point, lr.tag_no, lr.energy_src, lr.isolating_means, lr.context, lr.context_text])
 
     df = pd.DataFrame(csv_list, columns=["file", "dept", "doc_no", "equip_id", "equip_desc", "date_eff", "prep_by", "prep_by_title", "app_by", "app_by_title", "extra", "precautions"])
-    df.to_csv(f"{path}\\area_data_gathered_2.csv", index=False)
+    df.to_csv(f"{path}\\data.csv", index=False)
 
     df2 = pd.DataFrame(lockout_list, columns=["file_name", "num", "point", "tag_no", "energy_src", "isolating_means", "context", "context_text"])
-    df2.to_csv(f"{path}\\area_lockout_table.csv", index=False)
+    df2.to_csv(f"{path}\\data_lockout.csv", index=False)
 
     # run a function that inserts the gathered data into an empty template and saves the document
     setup.insert_into_files(file_data_list)
