@@ -3,8 +3,8 @@ def configuration():
 
     :return: basic configuration variables for the script
     """
-    base_path = "C:\\MPSAC\\TEST\\CONVERSION"
-    area = "Waste Water Treatment"
+    base_path = "C:\\SOMEDIR\\SOMEDIR2\\CONVERSION"
+    area = "SOMEAREA"
     if area:
         path = f"{base_path}\\{area}"
         template_path = f"{path}\\TEMPLATE\\EMPTY_TEMPLATE.docx"
